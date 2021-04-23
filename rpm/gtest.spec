@@ -1,20 +1,23 @@
 Summary:        Google C++ testing framework
 Name:           gtest
-Version:        1.8.1
+Version:        1.10.0
 Release:        1
 # scripts/generator/* are ASL 2.0
 License:        BSD and ASL 2.0
 URL:            https://github.com/google/googletest
 Source0:        %{name}-%{version}.tar.gz
-# https://github.com/google/googletest/pull/967
-Patch0:         gtest-1.8.1-null-pointer.patch
-# https://github.com/google/googletest/pull/1839
-Patch1:         gtest-PR1839-Fix-Python3-support.patch
+# From: https://github.com/google/googletest/pull/2491
+Patch0:         gtest-PR2491-Fix-gnu-install-dirs-pkg-config.patch
+# From: https://github.com/google/googletest/pull/2556
+Patch1:         gtest-PR2556-pkg-config-Remove-pthread-link-flag-from-Cflags.patch
 # Fedora-specific patches
 ## Set libversion for libraries to version of gtest
+### Submitted: https://github.com/google/googletest/pull/2755
 Patch100:       gtest-1.8.1-libversion.patch
 ## Add missing pkgconfig requires information to reflect reality
-Patch101:       gtest-1.8.1-add-missing-pkgconfig-requires.patch
+### Submitted: https://github.com/google/googletest/pull/2756
+Patch101:       gtest-1.10.0-add-missing-pkgconfig-requires.patch
+Patch102:       %{name}-gcc11.patch
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -76,12 +79,8 @@ Requires:       libgmock = %{version}-%{release}
 Documentation files for libgmock.
 
 %prep
-%setup -q -n %{name}-%{version}/%{name}
+%autosetup -p1 -n %{name}-%{version}/%{name}
 
-%patch0 -p1
-%patch1 -p1
-%patch100 -p1
-%patch101 -p1
 
 # Set the version correctly
 sed -e "s/set(GOOGLETEST_VERSION .*)/set(GOOGLETEST_VERSION %{version})/" -i CMakeLists.txt
@@ -102,7 +101,7 @@ sed -e "s/set(GOOGLETEST_VERSION .*)/set(GOOGLETEST_VERSION %{version})/" -i CMa
 %postun -n libgmock -p /sbin/ldconfig
 
 %files
-%license googletest/LICENSE
+%license ./LICENSE
 %{_libdir}/libgtest.so.%{version}
 %{_libdir}/libgtest_main.so.%{version}
 
@@ -120,7 +119,7 @@ sed -e "s/set(GOOGLETEST_VERSION .*)/set(GOOGLETEST_VERSION %{version})/" -i CMa
 %doc googletest/samples
 
 %files -n libgmock
-%license googlemock/LICENSE
+%license ./LICENSE
 %{_libdir}/libgmock.so.%{version}
 %{_libdir}/libgmock_main.so.%{version}
 

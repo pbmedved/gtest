@@ -1,0 +1,15 @@
+diff --git a/googletest/src/gtest-death-test.cc b/googletest/src/gtest-death-test.cc
+index da09a1c..4d6343f 100644
+--- a/googletest/src/gtest-death-test.cc
++++ b/googletest/src/gtest-death-test.cc
+@@ -1289,7 +1289,10 @@ static void StackLowerThanAddress(const void* ptr,
+ GTEST_ATTRIBUTE_NO_SANITIZE_HWADDRESS_
+ static void StackLowerThanAddress(const void* ptr, bool* result) {
+   int dummy;
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wpointer-compare"
+   *result = (&dummy < ptr);
++#pragma GCC diagnostic push
+ }
+ 
+ // Make sure AddressSanitizer does not tamper with the stack here.

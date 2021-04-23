@@ -1,27 +1,29 @@
 diff --git a/googlemock/cmake/gmock.pc.in b/googlemock/cmake/gmock.pc.in
-index c441642..e80b506 100644
+index 5780fcaa5..23c67b5c8 100644
 --- a/googlemock/cmake/gmock.pc.in
 +++ b/googlemock/cmake/gmock.pc.in
-@@ -5,5 +5,6 @@ Name: gmock
+@@ -5,6 +5,6 @@ Name: gmock
  Description: GoogleMock (without main() function)
  Version: @PROJECT_VERSION@
  URL: https://github.com/google/googletest
+-Requires: gtest
 +Requires: gtest = @PROJECT_VERSION@
  Libs: -L${libdir} -lgmock @CMAKE_THREAD_LIBS_INIT@
- Cflags: -I${includedir} @GTEST_HAS_PTHREAD_MACRO@ @CMAKE_THREAD_LIBS_INIT@
+ Cflags: -I${includedir} @GTEST_HAS_PTHREAD_MACRO@
 diff --git a/googlemock/cmake/gmock_main.pc.in b/googlemock/cmake/gmock_main.pc.in
-index c377dba..752f14d 100644
+index f2dfe69e0..66ffea7f4 100644
 --- a/googlemock/cmake/gmock_main.pc.in
 +++ b/googlemock/cmake/gmock_main.pc.in
-@@ -5,5 +5,6 @@ Name: gmock_main
+@@ -5,6 +5,6 @@ Name: gmock_main
  Description: GoogleMock (with main() function)
  Version: @PROJECT_VERSION@
  URL: https://github.com/google/googletest
+-Requires: gmock
 +Requires: gmock = @PROJECT_VERSION@
  Libs: -L${libdir} -lgmock_main @CMAKE_THREAD_LIBS_INIT@
- Cflags: -I${includedir} @GTEST_HAS_PTHREAD_MACRO@ @CMAKE_THREAD_LIBS_INIT@
+ Cflags: -I${includedir} @GTEST_HAS_PTHREAD_MACRO@
 diff --git a/googletest/cmake/gtest_main.pc.in b/googletest/cmake/gtest_main.pc.in
-index fe25d9c..63b2b14 100644
+index 1e01bd19a..38c88c54d 100644
 --- a/googletest/cmake/gtest_main.pc.in
 +++ b/googletest/cmake/gtest_main.pc.in
 @@ -5,6 +5,6 @@ Name: gtest_main
@@ -31,4 +33,4 @@ index fe25d9c..63b2b14 100644
 -Requires: gtest
 +Requires: gtest = @PROJECT_VERSION@
  Libs: -L${libdir} -lgtest_main @CMAKE_THREAD_LIBS_INIT@
- Cflags: -I${includedir} @GTEST_HAS_PTHREAD_MACRO@ @CMAKE_THREAD_LIBS_INIT@
+ Cflags: -I${includedir} @GTEST_HAS_PTHREAD_MACRO@
